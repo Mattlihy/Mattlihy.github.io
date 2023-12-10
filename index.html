@@ -8,30 +8,26 @@
 </head>
 <body>
     <div class="container">
-      <h1>Cappucci Coffee Shop Ratings</h1>
+        <h1>Cappucci Coffee Shop Ratings</h1>
+        <form id="ratingForm">
+            <label for="name">Coffee Shop Name:</label>
+            <input type="text" id="name" name="name" required>
 
-      <form id="review-form">
-        <label for="shop-name">Coffee Shop Name:</label>
-        <input type="text" id="shop-name" name="shop_name" required>
+            <label for="taste">Taste:</label>
+            <input type="number" id="taste" name="taste" min="1" max="5" required>
 
-        <label for="taste-rating">Taste Rating:</label>
-        <span class="rating">
-          <input type="radio" id="taste-rating-1" name="taste_rating" value="1" required>
-          <label for="taste-rating-1">1</label>
-          <input type="radio" id="taste-rating-2" name="taste_rating" value="2" required>
-          <label for="taste-rating-2">2</label>
-          <input type="radio" id="taste-rating-3" name="taste_rating" value="3" required>
-          <label for="taste-rating-3">3</label>
-          <input type="radio" id="taste-rating-4" name="taste_rating" value="4" required>
-          <label for="taste-rating-4">4</label>
-          <input type="radio" id="taste-rating-5" name="taste_rating" value="5" required>
-          <label for="taste-rating-5">5</label>
-        </span>
+            <label for="ambiance">Ambiance:</label>
+            <input type="number" id="ambiance" name="ambiance" min="1" max="5" required>
 
-        <button type="submit">Submit Review</button>
-      </form>
+            <label for="service">Service:</label>
+            <input type="number" id="service" name="service" min="1" max="5" required>
 
-      <div id="reviews"></div>
+            <button type="button" onclick="submitRating()">Submit</button>
+        </form>
+
+        <div id="ratingsContainer"></div>
+
+        <button type="button" onclick="clearAllRatings()">Clear All Ratings</button>
     </div>
 
     <script src="script.js"></script>
