@@ -1,54 +1,36 @@
-let ratings = [];
+const reviewForm = document.getElementById('review-form');
+const reviewsContainer = document.getElementById('reviews');
 
-function submitRating() {
-    const name = document.getElementById("name").value;
-    const taste = parseInt(document.getElementById("taste").value);
-    const ambiance = parseInt(document.getElementById("ambiance").value);
-    const service = parseInt(document.getElementById("service").value);
+reviewForm.addEventListener('submit', function(event) {
+  event.preventDefault();
 
-    // Calculate overall average rating
-    const average = (taste + ambiance + service) / 3;
+  const shopName = document.getElementById('shop-name').value;
+  const tasteRating = document.querySelector('input[name="taste_rating"]:checked').value;
+  const serviceRating = document.querySelector('input[name="service_rating"]:checked').value;
+  const ambienceRating = document.querySelector('input[name="ambience_rating"]:checked').value;
 
-    // Store ratings
-    ratings.push({ name, taste, ambiance, service, average });
+  // Save the review data (e.g., using localStorage or a backend database)
 
-    // Display ratings
-    displayRatings();
+  createReviewBlock(shopName, tasteRating, serviceRating, ambienceRating);
+  reviewForm.reset();
+});
 
-    // Clear form fields
-    document.getElementById("name").value = "";
-    document.getElementById("taste").value = "";
-    document.getElementById("ambiance").value = "";
-    document.getElementById("service").value = "";
-}
+function createReviewBlock(shopName, tasteRating, serviceRating, ambienceRating) {
+  const reviewBlock = document.createElement('div');
+  reviewBlock.classList.add('review-block');
 
-function displayRatings() {
-    const ratingsContainer = document.getElementById("ratingsContainer");
+  // Add content to the review block
+  reviewBlock.innerHTML = `
+    <h2>${shopName}</h2>
+    <p>Taste Rating: ${tasteRating}</p>
+    <p>Service Rating: ${serviceRating}</p>
+    <p>Ambience Rating: ${ambienceRating}</p>
+    <button class="clear-button">Clear</button>
+  `;
 
-    // Clear container
-    ratingsContainer.innerHTML = '';
+  reviewBlock.querySelector('.clear-button').addEventListener('click', function() {
+    reviewBlock.parentNode.removeChild(reviewBlock);
+  });
 
-    // Display each set of ratings
-    ratings.forEach((rating, index) => {
-        const ratingBlock = document.createElement("div");
-        ratingBlock.classList.add("rating-block");
-
-        ratingBlock.innerHTML = `
-            <h2>${rating.name}</h2>
-            <p><strong>Taste:</strong> ${rating.taste}</p>
-            <p><strong>Ambiance:</strong> ${rating.ambiance}</p>
-            <p><strong>Service:</strong> ${rating.service}</p>
-            <p><strong>Overall Average:</strong> ${rating.average.toFixed(2)}</p>
-        `;
-
-        ratingsContainer.appendChild(ratingBlock);
-    });
-}
-
-function clearAllRatings() {
-    // Clear ratings array
-    ratings = [];
-
-    // Clear displayed ratings
-    displayRatings();
+  reviewsContainer.appendChild(reviewBlock);
 }
