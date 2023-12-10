@@ -25,6 +25,9 @@ function submitRating() {
 function displayRatings() {
     const ratingsContainer = document.getElementById("ratingsContainer");
 
+    // Clear container
+    ratingsContainer.innerHTML = '';
+
     // Display each set of ratings
     ratings.forEach((rating, index) => {
         const ratingBlock = document.createElement("div");
